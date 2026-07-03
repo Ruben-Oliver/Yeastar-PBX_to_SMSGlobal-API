@@ -26,7 +26,6 @@ Acts as middleware between the Yeastar PBX General SMS provider system and the S
 
 | Key    | Value                                                                   |
 |--------|-------------------------------------------------------------------------|
-| KEY    | \<api-key\>                                                               |
 | SECRET | \<api-secret\>                                                            |
 | HOST   | \<pbx-domain e.g mypbx.au.ycmcloud.com\>                                  |
 | PATH   | \<pbx-webhook e.g /api/v1.0/webhook/general/abcdefghijklmnop1234567890\> |
