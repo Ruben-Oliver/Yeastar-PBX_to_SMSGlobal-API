@@ -9,6 +9,14 @@ Acts as middleware between the Yeastar PBX General SMS provider system and the S
 
 ## Setup
 
+### PBX Configuration
+
+1. Create a new SMS Channel under `Messaging -> Message Channel -> Add -> SMS`
+2. Set your desired channel name
+3. Set ITSP to "General"
+4. Set "API Address for Sending Messages" to your Lambda `PBX -> SMS Global` function's open HTTP API Gateway
+5. Set key and secret to your SMS Global API credentials - Note that the PBX does not actually authenticate with the Lambda function, I will fix this very soon.
+
 ### PBX -> SMS Global
 
 1. Paste the contents of `pbx-to-smsglobal.py` into your `PBX -> SMS Global` function
