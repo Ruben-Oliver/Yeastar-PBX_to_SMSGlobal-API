@@ -6,8 +6,8 @@ import urllib.error # Handling
 import hashlib # Generating signature/hashing for authentication
 import hmac # ^
 import uuid # Generating ID's
-from datetime import datetime, timezone # Timestamping
-import os # Get ENV variables
+from datetime import datetime, timezone
+import os
 
 # Set up logging
 logger = logging.getLogger()
@@ -16,7 +16,7 @@ logger.setLevel(logging.INFO)
 # These should be set as Lambda Environment Variables. Ensure Yeastar host does NOT have http/https schema
 yeastar_host = os.environ.get('HOST')
 path = os.environ.get('PATH') # Set as trailing webhook endpoint on PBX
-secret = os.environ.get('SECRET') # Needed for signature/hashing
+secret = os.environ.get('SECRET')
 
 def getTime():
     now = datetime.now(timezone.utc).astimezone()  # local time with offset
@@ -99,7 +99,7 @@ def lambda_handler(event, context):
         "msgid": msg_id,
     }
 
-    logger.info(f"{msg_from} to {msg_to}: {msg_text} -- ID: {msg_id}")
+    logger.info(f"Received SMS: {msg_from} to {msg_to}: {msg_text} -- ID: {msg_id}")
 
     status, response = send_webhook(
         yeastar_host,
