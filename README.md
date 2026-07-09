@@ -15,7 +15,7 @@ Acts as middleware between the Yeastar PBX General SMS provider system and the S
 2. Set your desired channel name
 3. Set ITSP to "General"
 4. Set "API Address for Sending Messages" to your Lambda `PBX -> SMS Global` function's open HTTP API Gateway
-5. Set key and secret to your SMS Global API credentials - Note that the PBX does not actually authenticate with the Lambda function, I will fix this very soon.
+5. Set key and secret to your SMS Global API credentials - While the PBX does not directly authenticate with SMS Global, the outbound SMS Lambda function will verify the Bearer token so that bad actors can't run up your SMS bill :)
 
 ### SMS Global Configuration
 
