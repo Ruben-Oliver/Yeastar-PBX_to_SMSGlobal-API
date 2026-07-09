@@ -17,7 +17,12 @@ Acts as middleware between the Yeastar PBX General SMS provider system and the S
 4. Set "API Address for Sending Messages" to your Lambda `PBX -> SMS Global` function's open HTTP API Gateway
 5. Set key and secret to your SMS Global API credentials - Note that the PBX does not actually authenticate with the Lambda function, I will fix this very soon.
 
-### PBX -> SMS Global
+### SMS Global Configuration
+
+1. Ensure your virtual number/s are enabled for SMS
+2. Set the callback URL for replies to your `SMS Global -> PBX` function
+
+### PBX -> SMS Global (Outbound SMS)
 
 1. Paste the contents of `pbx-to-smsglobal.py` into your `PBX -> SMS Global` function
 2. Ensure the environment variables are set as below
@@ -27,7 +32,7 @@ Acts as middleware between the Yeastar PBX General SMS provider system and the S
 | KEY    | \<api-key\>    |
 | SECRET | \<api-secret\> |
 
-### SMS Global -> PBX
+### SMS Global -> PBX (Inbound SMS)
 
 1. Paste the contents of `smsglobal-to-pbx.py` into your `SMS Global -> PBX` function
 2. Ensure the environment variables are set as below
