@@ -76,7 +76,7 @@ def sendMessage(origin, destination, message):
         method="POST",
     )
 
-    try: # Send request
+    try: # Send off request
         with urllib.request.urlopen(req, timeout=20) as resp:
             return resp.status, resp.read()
     except urllib.error.HTTPError as e:
@@ -85,8 +85,20 @@ def sendMessage(origin, destination, message):
         return "Error sending SMS"
 
 def lambda_handler(event, context):
-    logger.info(f"RAW event: {event}") # Log raw event for analysis if needed
+    # logger.info(f"RAW event: {event}") # Log raw event for analysis if needed
+    
+    # Get Bearer token
+    authBearer = event["headers"]["authorization"]
 
+    if authBearer != "Bearer " + os.environ.get("KEY"): # Check for correct auth key
+        logger.info(f"Unauthorized Access attempt from: {event["requestContext"]["http"]["sourceIp"]}")
+        logger.info(f"Raw event: {event}")
+        return {
+            "statusCode": 401,
+            "isBase64Encoded": False,
+            "headers": {"Content-Type": "application/json"},
+            "body": json.dumps({"error": "Unauthorized"}),
+        }
     if isinstance(event, dict) and any(k in event for k in ("from", "text", "to")):
         payload = event
     elif isinstance(event.get("body"), (str, bytes, bytearray)) and event.get("body") not in (None, b"", ""):
