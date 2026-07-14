@@ -31,8 +31,7 @@ def send_webhook(
     msg_from,
     msg_text,
     msg_date,
-    msg_id,
-):
+    msg_id,):
     body = {
         "data": {
             "event_type": "message.received",
@@ -99,7 +98,7 @@ def lambda_handler(event, context):
         "msgid": msg_id,
     }
 
-    logger.info(f"Received SMS: {msg_from} to {msg_to}: {msg_text} -- ID: {msg_id}")
+    logger.info(f"{msg_from} to {msg_to}: {msg_text} -- ID: {msg_id}")
 
     status, response = send_webhook(
         yeastar_host,
@@ -112,7 +111,6 @@ def lambda_handler(event, context):
         msg_id,
     )
 
-    logger.info(response)
 
     if status == 400 or status == "400":
         raise Exception(f"Webhook failed: {status}: {response.decode('utf-8', errors='replace')}")
